@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=utf-8" %>
+<%@ page contentType="text/html;charset=utf-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 
@@ -56,6 +56,10 @@
 	</style>
 </head>
 <body>
+<script>
+	let msg = "${msg}";
+	if(msg=="register_success") alert("회원가입에 성공하였습니다.");
+</script>
 <div class="topnav" id="myTopnav">
 	<a href="#btn1">버튼1</a>
 	<a href="#btn2">버튼2</a>

@@ -2,21 +2,21 @@ package com.myproject.web.domain;
 
 public class User {
     private String id;
-    private String pwd;
+    private String password;
     private String name;
 
     @Override
     public String toString() {
         return "UserDao{" +
                 "id='" + id + '\'' +
-                ", password='" + pwd + '\'' +
+                ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }
 
     public User(String id, String pwd, String name) {
         this.id = id;
-        this.pwd = pwd;
+        this.password = pwd;
         this.name = name;
     }
 
@@ -29,11 +29,11 @@ public class User {
     }
 
     public String getPwd() {
-        return pwd;
+        return password;
     }
 
     public void setPwd(String password) {
-        this.pwd = password;
+        this.password = password;
     }
 
     public String getName() {
