@@ -14,9 +14,9 @@ public class User {
                 '}';
     }
 
-    public User(String id, String pwd, String name) {
+    public User(String id, String password, String name) {
         this.id = id;
-        this.password = pwd;
+        this.password = password;
         this.name = name;
     }
 
