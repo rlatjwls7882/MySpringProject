@@ -57,8 +57,9 @@
 </head>
 <body>
 <script>
-	let msg = "${msg}";
-	if(msg=="register_success") alert("회원가입에 성공하였습니다.");
+	let msgFromController = "${msg}";
+	if(msgFromController=="register_success") alert("회원가입에 성공하였습니다. \n로그인을 진행해주세요.");
+	if(msgFromController=="login_success") alert("로그인에 성공하였습니다.");
 </script>
 <div class="topnav" id="myTopnav">
 	<a href="#btn1">버튼1</a>

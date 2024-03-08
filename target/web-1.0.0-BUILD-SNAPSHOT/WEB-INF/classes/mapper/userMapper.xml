@@ -10,4 +10,9 @@
             (#{id}, #{password}, #{name})
     </insert>
 
+    <select id="selectOne" parameterType="String" resultType="User">
+        SELECT * FROM user_info
+        WHERE id = #{id}
+    </select>
+
 </mapper>

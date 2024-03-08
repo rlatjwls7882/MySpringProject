@@ -14,4 +14,11 @@ public class UserServiceImpl implements UserService {
     public int createUser(User user) throws Exception {
         return userDao.insertUser(user);
     }
+
+    @Override
+    public boolean checkUser(User userInput) throws Exception {
+        User userFromId = userDao.selectUser(userInput.getId());
+        if(userFromId == null) return false;
+        return userInput.getPassword().equals(userFromId.getPassword());
+    }
 }

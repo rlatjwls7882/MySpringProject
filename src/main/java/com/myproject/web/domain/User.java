@@ -28,7 +28,7 @@ public class User {
         this.id = id;
     }
 
-    public String getPwd() {
+    public String getPassword() {
         return password;
     }
 

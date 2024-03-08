@@ -20,20 +20,21 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(User user, Model m, RedirectAttributes rattr) {
+    public String register(User user, RedirectAttributes rattr) {
         System.out.println("user = " + user);
 
         try {
             int changeCnt = userService.createUser(user);
 
             if(changeCnt!=1) {
-                throw new Exception();
+                rattr.addFlashAttribute("msg", "register_failed");
+                return "redirect:/register";
             }
             rattr.addFlashAttribute("msg", "register_success");
             return "redirect:/";
         } catch (Exception e) {
             // 아이디 중복 등의 오류 발생
-            rattr.addFlashAttribute("msg", "register_failed");
+            rattr.addFlashAttribute("msg", "register_failed_idk");
             return "redirect:/register";
         }
     }

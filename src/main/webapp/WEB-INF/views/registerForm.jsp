@@ -15,9 +15,10 @@
 <script>
     let msgFromController = "${msg}";
     if(msgFromController=="register_failed") alert("회원가입에 실패하였습니다.");
+    if(msgFromController=="register_failed_idk") alert("예기치 않은 오류로 회원가입에 실패하였습니다.");
 </script>
 <form action="<c:url value='/register'/>" method="post" onsubmit="return formCheck(this)">
-    <div id="msg"><form:errors path="id"/></div>
+    <div id="msg"><form:errors/></div>
     <div>
       <input type="text" name="id" placeholder="아이디를 입력하세요" />
     </div>
