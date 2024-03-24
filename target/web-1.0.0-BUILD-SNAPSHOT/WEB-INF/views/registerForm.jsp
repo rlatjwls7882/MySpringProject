@@ -9,7 +9,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-    <title>회원가입 페이지</title>
+    <title>회원가입</title>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+
+        /* input 필드 */
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* 버튼 스타일 */
+        button {
+            background-color: #333;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        /* 상자 스타일 */
+        .box {
+            background-color: #fefefe;
+            margin: 15% auto 15% auto; /* 위에서 15%, 아래에서 15% */
+            border: 1px solid #888;
+            width: 600px;
+            height: 400px;
+        }
+    </style>
 </head>
 <body>
 <script>
@@ -17,18 +58,24 @@
     if(msgFromController=="register_failed") alert("회원가입에 실패하였습니다.");
     if(msgFromController=="register_failed_idk") alert("예기치 않은 오류로 회원가입에 실패하였습니다.");
 </script>
-<form action="<c:url value='/register'/>" method="post" onsubmit="return formCheck(this)">
-    <div id="msg"><form:errors/></div>
-    <div>
-      <input type="text" name="id" placeholder="아이디를 입력하세요" />
+<form class="box" action="<c:url value='/register'/>" method="post" onsubmit="return formCheck(this)">
+    <div class="container">
+        <div id="msg"><form:errors/></div>
+        <label>
+            <b>아이디</b>
+            <input type="text" name="id" placeholder="아이디를 입력하세요" />
+        </label>
+        <label>
+            <b>비밀번호</b>
+            <input type="password" name="pwd" placeholder="비밀번호를 입력하세요" />
+            <input type="password" name="pwdCheck" placeholder="비밀번호를 다시한번 입력하세요" />
+        </label>
+        <label>
+            <b>이름</b>
+            <input type="text" name="name" placeholder="이름을 입력하세요" />
+        </label>
+        <button>회원가입</button>
     </div>
-    <div>
-      <input type="password" name="pwd" placeholder="비밀번호를 입력하세요" />
-    </div>
-    <div>
-      <input type="text" name="name" placeholder="이름을 입력하세요" />
-    </div>
-    <button>회원가입</button>
 </form>
 <script>
     function formCheck(form) {
@@ -57,6 +104,10 @@
         }
         if(form.name.value.length<1) {
             setMessage('이름은 1글자 이상이어야 합니다.', form.name);
+            return false;
+        }
+        if(!form.pwd.value.equals(form.pwdCheck.value)) {
+            setMessage('두 비밀번호가 일치하지 않습니다.', form.pwdCheck);
             return false;
         }
         return true;

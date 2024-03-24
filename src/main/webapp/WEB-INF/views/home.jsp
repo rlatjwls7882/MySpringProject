@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +9,6 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<title>Home</title>
 	<style>
-		/* 검은 배경의 위치 설정 */
 		body {
 			margin: 0;
 			font-family: Arial, Helvetica, sans-serif;
@@ -45,7 +43,7 @@
 		}
 
 		/* 로그인 버튼 */
-		.topnav .login {
+		.topnav .loginout {
 			float: right;
 		}
 
@@ -60,6 +58,7 @@
 	let msgFromController = "${msg}";
 	if(msgFromController=="register_success") alert("회원가입에 성공하였습니다. \n로그인을 진행해주세요.");
 	if(msgFromController=="login_success") alert("로그인에 성공하였습니다.");
+	if(msgFromController=="logout_success") alert("로그아웃 되었습니다.");
 </script>
 <div class="topnav" id="myTopnav">
 	<a href="#btn1">버튼1</a>
@@ -68,8 +67,16 @@
 	<a href="#adidasBtn" class="adidas" onclick="">
 		<i class="fa fa-bars"></i>
 	</a>
-	<a href="<c:url value='/register'/>" class="register">회원가입</a>
-	<a href="<c:url value='/login'/>" class="login">로그인</a>
+	<c:choose>
+		<c:when test="${isLogin}">
+			<a href="<c:url value='/register'/>" class="register">회원정보</a>
+			<a href="<c:url value='/logout'/>" class="loginout">로그아웃</a>
+		</c:when>
+		<c:otherwise>
+			<a href="<c:url value='/register'/>" class="register">회원가입</a>
+			<a href="<c:url value='/login'/>" class="loginout">로그인</a>
+		</c:otherwise>
+	</c:choose>
 </div>
 
 <div style="padding-left: 16px">
