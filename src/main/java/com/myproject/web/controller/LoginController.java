@@ -19,16 +19,16 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/login")
-    public String loginForm() {
-        return "loginForm";
-    }
-
     @GetMapping("/logout")
     public String logout(HttpSession session, RedirectAttributes rattr) {
         session.invalidate();
         rattr.addFlashAttribute("msg", "logout_success");
         return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "loginForm";
     }
 
     @PostMapping("/login")
@@ -44,19 +44,39 @@ public class LoginController {
             session.setAttribute("id", user.getId());
             session.setAttribute("isLogin", true);
 
-            if(rememberId) {
-                Cookie cookie = new Cookie("id", user.getId());
-                response.addCookie(cookie);
-            } else {
-                Cookie cookie = new Cookie("id", user.getId());
+            Cookie cookie = new Cookie("id", user.getId());
+            if (!rememberId) {
                 cookie.setMaxAge(0);
-                response.addCookie(cookie);
             }
+            response.addCookie(cookie);
 
             return "redirect:/";
         } catch (Exception e) {
             rattr.addFlashAttribute("msg", "login_failed_idk");
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/searchPwd")
+    public String searchPwd() {
+        return "searchPwd";
+    }
+
+    @PostMapping("/searchPwd")
+    public String searchPwd(String id, RedirectAttributes rattr) {
+        try {
+            User user = userService.searchUser(id);
+            System.out.println("비밀번호 찾기 성공: " + user);
+
+            if(user==null) {
+                rattr.addFlashAttribute("msg", "search_failed");
+            } else {
+                rattr.addFlashAttribute("msg", "search_success");
+                rattr.addFlashAttribute("pwd", user.getPassword());
+            }
+        } catch (Exception e) {
+            System.out.println("서버 오류 발생");
+        }
+        return "redirect:/searchPwd";
     }
 }

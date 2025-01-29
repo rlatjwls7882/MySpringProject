@@ -56,23 +56,23 @@
 <script>
     let msgFromController = "${msg}";
     if(msgFromController=="register_failed") alert("회원가입에 실패하였습니다.");
-    if(msgFromController=="register_failed_idk") alert("예기치 않은 오류로 회원가입에 실패하였습니다.");
+    if(msgFromController=="register_failed_idk") alert("서버 오류로 회원가입에 실패하였습니다.");
 </script>
 <form class="box" action="<c:url value='/register'/>" method="post" onsubmit="return formCheck(this)">
     <div class="container">
         <div id="msg"><form:errors/></div>
         <label>
             <b>아이디</b>
-            <input type="text" name="id" placeholder="아이디를 입력하세요" />
+            <input type="text" name="id" placeholder="아이디는 7글자 이상이어야 합니다." />
         </label>
         <label>
             <b>비밀번호</b>
-            <input type="password" name="pwd" placeholder="비밀번호를 입력하세요" />
-            <input type="password" name="pwdCheck" placeholder="비밀번호를 다시한번 입력하세요" />
+            <input type="password" name="pwd" placeholder="비밀번호는 특수문자, 숫자, 알파벳을 포함한 3글자 이상이어야 합니다." />
+            <input type="password" name="pwdCheck" placeholder="비밀번호를 다시한번 입력하세요." />
         </label>
         <label>
             <b>이름</b>
-            <input type="text" name="name" placeholder="이름을 입력하세요" />
+            <input type="text" name="name" placeholder="이름을 입력하세요." />
         </label>
         <button>회원가입</button>
     </div>
@@ -93,19 +93,21 @@
             } else {
                 special=true
             }
-            if(num&&alphabet&&special) {
+            if(num && alphabet && special) {
                 break;
             }
         }
 
-        if(form.pwd.value.length<3||!special||!num||!alphabet) {
+        if(form.pwd.value.length<3 || !special || !num || !alphabet) {
             setMessage('비밀번호는 특수문자, 숫자, 알파벳을 포함한 3글자 이상이어야 합니다.', form.pwd);
             return false;
         }
         if(form.name.value.length<1) {
-            setMessage('이름은 1글자 이상이어야 합니다.', form.name);
+            setMessage('이름을 입력해주세요.', form.name);
             return false;
         }
+        
+        // 왜인지 모르겠지만 작동이 안됨
         if(!form.pwd.value.equals(form.pwdCheck.value)) {
             setMessage('두 비밀번호가 일치하지 않습니다.', form.pwdCheck);
             return false;
@@ -114,6 +116,7 @@
     }
 
     function setMessage(msg, element){
+        document.getElementById("msg").style.color = "#db0d36";
         document.getElementById("msg").innerHTML = `<i class="fa fa-exclamation-circle"> ${'${msg}'}</i>`;
         element.select();
     }

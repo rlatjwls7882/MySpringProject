@@ -69,7 +69,7 @@
 	</a>
 	<c:choose>
 		<c:when test="${isLogin}">
-			<a href="<c:url value='/register'/>" class="register">회원정보</a>
+			<a href="#" class="register">회원정보</a>
 			<a href="<c:url value='/logout'/>" class="loginout">로그아웃</a>
 		</c:when>
 		<c:otherwise>

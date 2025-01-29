@@ -65,7 +65,7 @@
 <script>
   let messageFromController = "${msg}";
   if(messageFromController=="login_failed") alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-  if(messageFromController=="login_failed_idk") alert("예기치 않은 오류로 로그인에 실패하였습니다.");
+  if(messageFromController=="login_failed_idk") alert("서버 오류로 로그인에 실패하였습니다.");
 </script>
 <form class="box" action="<c:url value="/login"/>" method="post" onsubmit="return formCheck(this)">
   <div class="container">
@@ -84,7 +84,7 @@
     </label>
     <div class="bottom">
       <a href="#" class="searchId">아이디 찾기</a>
-      <a href="#" class="searchPwd">비밀번호 찾기</a>
+      <a href="<c:url value='/searchPwd'/>" class="searchPwd">비밀번호 찾기</a>
       <a href="<c:url value='/register'/>" class="register">회원가입</a>
     </div>
   </div>
@@ -92,17 +92,18 @@
 <script>
   function formCheck(form) {
     if(form.id.value.length<1) {
-      setMessage('아이디를 입력하세요', form.id)
+      setMessage('아이디를 입력해주세요', form.id)
       return false;
     }
     if(form.pwd.value.length<1) {
-      setMessage('비밀번호를 입력하세요', form.pwd)
+      setMessage('비밀번호를 입력해주세요', form.pwd)
       return false;
     }
     return true;
   }
 
   function setMessage(msg, element){
+    document.getElementById("msg").style.color = "#db0d36";
     document.getElementById("msg").innerHTML = `<i class="fa fa-exclamation-circle"> ${'${msg}'}</i>`;
     element.select();
   }

@@ -7,11 +7,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "UserDao{" +
+        return "User 정보[" +
                 "id='" + id + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
-                '}';
+                ']';
     }
 
     public User(String id, String password, String name) {

@@ -21,4 +21,9 @@ public class UserServiceImpl implements UserService {
         if(userFromId == null) return false;
         return userInput.getPassword().equals(userFromId.getPassword());
     }
+
+    @Override
+    public User searchUser(String id) throws Exception {
+        return userDao.selectUser(id);
+    }
 }
